@@ -87,10 +87,14 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ${{ secrets.APP_DIR }} || mkdir -p ${{ secrets.APP_DIR }} && cd ${{ secrets.APP_DIR }}
+            APP_DIR="${{ secrets.APP_DIR }}"
+            if [ -z "$APP_DIR" ]; then
+              APP_DIR="/home/ubuntu/app"
+            fi
+            cd "$APP_DIR" || mkdir -p "$APP_DIR" && cd "$APP_DIR"
 
             if [ ! -d ".git" ]; then
-              git clone https://github.com/<your-username>/<repo>.git .
+              git clone https://github.com/Inprat/CI-CD.git .
             else
               git pull origin main
             fi
