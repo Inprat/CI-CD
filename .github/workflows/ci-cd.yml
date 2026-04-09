@@ -27,8 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v3
-      - run: pip install -r requirements.txt
+    - uses: actions/checkout@v3
+
+    - name: Debug files
+      run: ls -la   # 👈 shows if requirements.txt exists
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
 
   # 4️⃣ Lint
   lint:
